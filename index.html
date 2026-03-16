@@ -1,16 +1,457 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Mi Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loreto Vázquez del Rey — Aerospace Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #faf7f2;
+      --warm-white: #fff9f4;
+      --sand: #e8ddd0;
+      --terracotta: #c0735a;
+      --terracotta-light: #d4896f;
+      --terracotta-pale: #f2e6e0;
+      --brown: #5c3d2e;
+      --brown-light: #8a6552;
+      --text: #2d1f17;
+      --text-muted: #7a5c4e;
+      --border: #e0d4c8;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Lora', serif; font-size: 1.1rem; color: var(--brown); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.85rem; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--terracotta); }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 80px; }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 5rem 3rem 5rem 4rem; }
+    .hero-eyebrow { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--terracotta); font-weight: 500; margin-bottom: 1.5rem; }
+    .hero-name { font-family: 'Lora', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); line-height: 1.15; color: var(--brown); margin-bottom: 1.5rem; }
+    .hero-name em { font-style: italic; color: var(--terracotta); }
+    .hero-description { font-size: 1rem; line-height: 1.8; color: var(--text-muted); max-width: 440px; margin-bottom: 2.5rem; }
+    .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: 2px; font-size: 0.88rem; font-weight: 500; text-decoration: none; transition: all 0.2s; letter-spacing: 0.03em; }
+    .btn-primary { background: var(--terracotta); color: white; border: 1px solid var(--terracotta); }
+    .btn-primary:hover { background: var(--brown); border-color: var(--brown); }
+    .btn-outline { background: transparent; color: var(--brown); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--brown); background: var(--terracotta-pale); }
+
+    .hero-right { background: var(--terracotta-pale); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .hero-right::before { content: ''; position: absolute; width: 350px; height: 350px; border-radius: 50%; background: var(--sand); opacity: 0.5; top: -80px; right: -80px; }
+    .hero-visual { position: relative; z-index: 1; text-align: center; padding: 3rem; }
+    .hero-initials { width: 160px; height: 160px; border-radius: 50%; background: var(--terracotta); display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; font-family: 'Lora', serif; font-size: 3rem; color: white; box-shadow: 0 20px 60px rgba(192,115,90,0.3); }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .tag { padding: 0.35rem 0.85rem; background: white; border: 1px solid var(--border); border-radius: 20px; font-size: 0.78rem; color: var(--brown-light); }
+
+    /* SECTIONS */
+    section { padding: 6rem 4rem; }
+    section:nth-child(even) { background: var(--warm-white); }
+    .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3.5rem; }
+    .section-number { font-family: 'Lora', serif; font-size: 0.9rem; color: var(--terracotta); opacity: 0.7; }
+    .section-title { font-family: 'Lora', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--brown); }
+    .section-line { flex: 1; height: 1px; background: var(--border); }
+    .container { max-width: 900px; margin: 0 auto; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { font-size: 1rem; line-height: 1.85; color: var(--text-muted); margin-bottom: 1.2rem; }
+    .about-text p strong { color: var(--brown); font-weight: 500; }
+    .about-facts { display: flex; flex-direction: column; gap: 1.2rem; }
+    .fact-item { padding: 1.2rem 1.5rem; background: var(--terracotta-pale); border-left: 3px solid var(--terracotta); border-radius: 0 4px 4px 0; }
+    .fact-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--terracotta); font-weight: 500; margin-bottom: 0.3rem; }
+    .fact-value { font-size: 0.92rem; color: var(--brown); }
+
+    /* TIMELINE */
+    .timeline { position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 0; width: 1px; background: var(--border); }
+    .timeline-item { padding-left: 2.5rem; padding-bottom: 3rem; position: relative; }
+    .timeline-item::before { content: ''; position: absolute; left: -4px; top: 8px; width: 9px; height: 9px; border-radius: 50%; background: var(--terracotta); border: 2px solid var(--cream); box-shadow: 0 0 0 1px var(--terracotta); }
+    .timeline-date { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--terracotta); font-weight: 500; margin-bottom: 0.4rem; }
+    .timeline-role { font-family: 'Lora', serif; font-size: 1.2rem; color: var(--brown); margin-bottom: 0.25rem; }
+    .timeline-company { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .timeline-bullets li { font-size: 0.92rem; line-height: 1.65; color: var(--text-muted); padding-left: 1rem; position: relative; }
+    .timeline-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--terracotta); font-size: 0.8rem; }
+
+    /* PROJECTS */
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .project-card { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 2rem; transition: box-shadow 0.2s, transform 0.2s; }
+    .project-card:hover { box-shadow: 0 8px 32px rgba(92,61,46,0.1); transform: translateY(-2px); }
+    .project-tag { display: inline-block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--terracotta); font-weight: 500; margin-bottom: 0.75rem; }
+    .project-title { font-family: 'Lora', serif; font-size: 1.05rem; color: var(--brown); margin-bottom: 0.75rem; line-height: 1.4; }
+    .project-desc { font-size: 0.88rem; line-height: 1.7; color: var(--text-muted); }
+    .project-card.wip { border-style: dashed; background: var(--cream); }
+    .wip-badge { display: inline-block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.2rem 0.6rem; background: var(--sand); color: var(--brown-light); border-radius: 2px; margin-top: 1rem; }
+
+    /* CURRENTLY */
+    .currently-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .currently-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+    .currently-icon { width: 42px; height: 42px; flex-shrink: 0; background: var(--terracotta-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .currently-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--terracotta); font-weight: 500; margin-bottom: 0.3rem; }
+    .currently-text { font-size: 0.92rem; line-height: 1.6; color: var(--text-muted); }
+
+    /* EDUCATION */
+    .edu-grid { display: flex; flex-direction: column; gap: 1.5rem; }
+    .edu-item { display: grid; grid-template-columns: 120px 1fr; gap: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .edu-item:last-child { border-bottom: none; }
+    .edu-year { font-family: 'Lora', serif; font-size: 1rem; color: var(--terracotta); padding-top: 0.15rem; }
+    .edu-degree { font-family: 'Lora', serif; font-size: 1.05rem; color: var(--brown); margin-bottom: 0.3rem; }
+    .edu-school { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .edu-note { font-size: 0.82rem; color: var(--text-muted); font-style: italic; line-height: 1.5; }
+
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .skill-group { padding: 1.5rem; background: white; border: 1px solid var(--border); border-radius: 6px; }
+    .skill-group-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--terracotta); font-weight: 500; margin-bottom: 1rem; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-pill { padding: 0.25rem 0.65rem; background: var(--terracotta-pale); border-radius: 20px; font-size: 0.78rem; color: var(--brown); }
+
+    /* CONTACT */
+    .contact-inner { text-align: center; padding: 3rem 0; }
+    .contact-inner p { font-size: 1rem; color: var(--text-muted); line-height: 1.75; max-width: 480px; margin: 0 auto 2rem; }
+    .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .contact-email { font-family: 'Lora', serif; font-size: 1.3rem; color: var(--terracotta); text-decoration: none; display: block; margin-bottom: 1.5rem; }
+    .contact-email:hover { color: var(--brown); }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 2rem; font-size: 0.78rem; color: var(--text-muted); border-top: 1px solid var(--border); background: var(--cream); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-left > * { animation: fadeUp 0.6s ease both; }
+    .hero-eyebrow { animation-delay: 0.1s; }
+    .hero-name { animation-delay: 0.2s; }
+    .hero-description { animation-delay: 0.3s; }
+    .hero-links { animation-delay: 0.4s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.75rem; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 4rem 1.5rem; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid, .projects-grid, .currently-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .edu-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Hola, soy Ingeniero</h1>
-    <p>Bienvenido a mi web personal.</p>
 
-    <h2>Proyectos</h2>
-    <ul>
-        <li>Proyecto 1</li>
-        <li>Proyecto 2</li>
+  <nav>
+    <a href="#" class="nav-logo">Loreto VRP</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#currently">Now</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Aerospace Engineer · Seville, Spain</p>
+      <h1 class="hero-name">Loreto<br><em>Vázquez del Rey</em></h1>
+      <p class="hero-description">
+        Specialised in aircraft performance, experimental aerodynamics and propulsion systems for RPAS.
+        Currently expanding into computational engineering — because the best engineers speak both physics and code.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:loretovrp@gmail.com" class="btn btn-primary">Get in touch</a>
+        <a href="https://linkedin.com/in/" target="_blank" class="btn btn-outline">LinkedIn</a>
+        <a href="https://github.com/" target="_blank" class="btn btn-outline">GitHub</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-visual">
+      <!----<div class="hero-initials">LV</div> --->  
+        <div class="hero-initials">
+  <img src="images/Loreto_VazquezdelRey_Perdomo.png" alt="Loreto Vázquez del Rey"
+       style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+</div>
+        <div class="hero-tags">
+          <span class="tag">Flight Performance</span>
+          <span class="tag">Wind Tunnel</span>
+          <span class="tag">RPAS / UAS</span>
+          <span class="tag">MATLAB</span>
+          <span class="tag">Blade Element Theory</span>
+          <span class="tag">ISAE-SUPAERO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-number">01</span>
+        <h2 class="section-title">About me</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm an aerospace engineer with a deep fascination for <strong>how things fly</strong> — and why, sometimes, they don't. My work sits at the intersection of experimental physics and numerical simulation: designing test campaigns, extracting aerodynamic data from wind tunnels, and turning that data into meaningful models.</p>
+          <p>I spent part of my master's at <strong>ISAE-SUPAERO in Toulouse</strong> — one of the best aerospace schools in Europe — which sharpened both my technical skills and my ability to work across cultures and languages.</p>
+          <p>Outside of engineering, I'm someone who values <strong>building things from scratch</strong>: whether that's a scale wind tunnel model, a dance routine, or now — a programming foundation. I think carefully, act deliberately, and care a lot about doing things well.</p>
+        </div>
+        <div class="about-facts">
+          <div class="fact-item">
+            <div class="fact-label">Based in</div>
+            <div class="fact-value">Seville, Spain — open to Europe</div>
+          </div>
+          <div class="fact-item">
+            <div class="fact-label">Languages</div>
+            <div class="fact-value">Spanish (native) · English B2→C1 · French B1</div>
+          </div>
+          <div class="fact-item">
+            <div class="fact-label">Background</div>
+            <div class="fact-value">BSc + MSc Aerospace Engineering, Univ. de Sevilla</div>
+          </div>
+          <div class="fact-item">
+            <div class="fact-label">Interests</div>
+            <div class="fact-value">Flight mechanics · Experimental aerodynamics · Computational methods</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-number">02</span>
+        <h2 class="section-title">Experience</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">Feb 2024 — Present</div>
+          <div class="timeline-role">RPAS Design Engineer</div>
+          <div class="timeline-company">Indra Sistemas Aéreos Autónomos (formerly AERTEC Solutions) · Seville</div>
+          <ul class="timeline-bullets">
+            <li>Aircraft performance and mission analysis: flight envelope (h–V), payload–range assessment across operational scenarios.</li>
+            <li>Propulsion sizing — selection of COTS electric motor-propeller assemblies and 2-stroke engines based on mission constraints.</li>
+            <li>Developed propeller performance models using Blade Element Theory with aerodynamic data from XFLR5.</li>
+            <li>Built MATLAB mission simulations covering fuel consumption, climb profiles, and time-dependent aircraft behaviour.</li>
+            <li>Stochastic trajectory generator for Detect and Avoid (DAA) software training datasets, based on MIT Lincoln Laboratory Airspace Encounter Models.</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Jun 2022 — Feb 2023</div>
+          <div class="timeline-role">Jr. Consultant Engineer (Internship)</div>
+          <div class="timeline-company">Capgemini Engineering · Seville</div>
+          <ul class="timeline-bullets">
+            <li>Fatigue and damage tolerance analysis of Airbus A220 fuselage structural components.</li>
+            <li>Structural model interrogation using CATIA V5 and HyperMesh to identify panels and nodes.</li>
+            <li>Technical report preparation following Airbus internal templates and processes.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-number">03</span>
+        <h2 class="section-title">Projects</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <span class="project-tag">MSc Thesis · 2023</span>
+          <div class="project-title">Dynamic Stability Characterisation of a CP-VTOL UAV</div>
+          <p class="project-desc">Wind tunnel experimental study of a 1:4 scale convertible UAV. Redesigned the test setup to eliminate systematic errors, extracted aerodynamic stability derivatives from oscillatory motion data, and translated results into design recommendations. Project ProVANT EMERGENTIa.</p>
+        </div>
+        <div class="project-card">
+          <span class="project-tag">BSc Thesis (Honours) · 2020</span>
+          <div class="project-title">Longitudinal Aerodynamic Characterisation — Project EMERGENTIa</div>
+          <p class="project-desc">Full design, manufacturing and testing of a wind tunnel model. Generated polynomial interpolation curves for each aerodynamic coefficient, delivered ready for flight simulator implementation. Awarded Matrícula de Honor (highest distinction).</p>
+        </div>
+        <div class="project-card wip">
+          <span class="project-tag">In progress</span>
+          <div class="project-title">CS50x — Introduction to Computer Science</div>
+          <p class="project-desc">Harvard's foundational CS course: algorithms, data structures, C, Python, SQL, and web programming. Final project in development.</p>
+          <span class="wip-badge">Work in progress</span>
+        </div>
+        <div class="project-card wip">
+          <span class="project-tag">Upcoming</span>
+          <div class="project-title">Personal projects — coming soon</div>
+          <p class="project-desc">Building a foundation in Python and computational tools to start working on projects at the intersection of aerospace engineering and software.</p>
+          <span class="wip-badge">Watch this space</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENTLY -->
+  <section id="currently">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-number">04</span>
+        <h2 class="section-title">What I'm doing now</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="currently-grid">
+        <div class="currently-item">
+          <div class="currently-icon">📚</div>
+          <div class="currently-content">
+            <div class="currently-label">Learning</div>
+            <div class="currently-text">CS50x (Harvard) — building solid programming fundamentals in C, Python, SQL and web development.</div>
+          </div>
+        </div>
+        <div class="currently-item">
+          <div class="currently-icon">✈️</div>
+          <div class="currently-content">
+            <div class="currently-label">Working on</div>
+            <div class="currently-text">RPAS performance and trajectory modelling at Indra. Exploring opportunities to work internationally in Europe.</div>
+          </div>
+        </div>
+        <div class="currently-item">
+          <div class="currently-icon">🌍</div>
+          <div class="currently-content">
+            <div class="currently-label">Looking for</div>
+            <div class="currently-text">New roles in aerospace engineering — ideally with a stronger computational or simulation component, open to France, Germany, Italy.</div>
+          </div>
+        </div>
+        <div class="currently-item">
+          <div class="currently-icon">🎯</div>
+          <div class="currently-content">
+            <div class="currently-label">Language goals</div>
+            <div class="currently-text">Preparing for C1 English certification. French B1 on standby, ready to reactivate when needed.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-number">05</span>
+        <h2 class="section-title">Education</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="edu-grid">
+        <div class="edu-item">
+          <div class="edu-year">2023</div>
+          <div>
+            <div class="edu-degree">MSc in Aeronautical Engineering</div>
+            <div class="edu-school">Universidad de Sevilla</div>
+            <div class="edu-note">Erasmus exchange at ISAE-SUPAERO, Toulouse (7 months) — aircraft design, operations, and structural engineering within the Grande École curriculum.</div>
+          </div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-year">2020</div>
+          <div>
+            <div class="edu-degree">BSc in Aerospace Engineering</div>
+            <div class="edu-school">Universidad de Sevilla</div>
+            <div class="edu-note">Final year thesis awarded Matrícula de Honor — highest university distinction.</div>
+          </div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-year">2019</div>
+          <div>
+            <div class="edu-degree">CVA Summer School on Space Transportation Systems</div>
+            <div class="edu-school">Sapienza University of Rome — supported by Avio, ESA, CNES, ArianeGroup</div>
+            <div class="edu-note">Selected from 5 European countries. Focus on reusable launchers, multidisciplinary teamwork, and visits to CIRA and major space industry partners.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-number">06</span>
+        <h2 class="section-title">Skills</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-title">Flight & Aerodynamics</div>
+          <div class="skill-list">
+            <span class="skill-pill">Flight envelope</span>
+            <span class="skill-pill">Payload–range</span>
+            <span class="skill-pill">Mission simulation</span>
+            <span class="skill-pill">Stability derivatives</span>
+            <span class="skill-pill">Wind tunnel testing</span>
+            <span class="skill-pill">XFLR5</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Propulsion</div>
+          <div class="skill-list">
+            <span class="skill-pill">Electric propulsion sizing</span>
+            <span class="skill-pill">2-stroke engine analysis</span>
+            <span class="skill-pill">Blade Element Theory</span>
+            <span class="skill-pill">Thrust-to-weight</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Tools & Software</div>
+          <div class="skill-list">
+            <span class="skill-pill">MATLAB</span>
+            <span class="skill-pill">Python (basic)</span>
+            <span class="skill-pill">C (learning)</span>
+            <span class="skill-pill">CATIA V5</span>
+            <span class="skill-pill">HyperMesh</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-number">07</span>
+        <h2 class="section-title">Get in touch</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="contact-inner">
+        <p>Whether you have a role to discuss, a project idea, or just want to connect — I'd love to hear from you.</p>
+        <a href="mailto:loretovrp@gmail.com" class="contact-email">loretovrp@gmail.com</a>
+        <div class="contact-links">
+          <a href="https://linkedin.com/in/" target="_blank" class="btn btn-outline">LinkedIn</a>
+          <a href="https://github.com/" target="_blank" class="btn btn-outline">GitHub</a>
+          <a href="mailto:loretovrp@gmail.com" class="btn btn-primary">Send email</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Loreto Vázquez del Rey Perdomo · Built with care (and a lot of curiosity)</p>
+  </footer>
+
 </body>
 </html>
